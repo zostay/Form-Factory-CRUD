@@ -58,7 +58,7 @@ has result_name => (
 
 =head2 result_source
 
-This is a lazily-loaded attribute that contains the L<DBIx::Class::ResultSource>. It is loaded using teh L</result_name> and L</schema> attributes.
+This is a lazily-loaded attribute that contains the L<DBIx::Class::ResultSource>. It is loaded using the L</result_name> and L</schema> attributes.
 
 =cut
 
@@ -86,7 +86,7 @@ has record => (
 
 =head2 get_record_field
 
-Given the name of a column, this returns teh value of that column on the L</record>.
+Given the name of a column, this returns the value of that column on the L</record>.
 
 =cut
 
