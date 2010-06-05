@@ -3,7 +3,7 @@ use Moose::Role;
 
 with qw( Form::Factory::CRUD::Action::Role::Lookup );
 
-requires qw( find );
+requires qw( find_by );
 
 =head1 NAME
 
@@ -116,7 +116,7 @@ sub find {
         die $message;
     }
 
-    $self->find(\%lookup_values);
+    $self->find_by(\%lookup_values);
 }
 
 =head1 AUTHOR

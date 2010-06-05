@@ -169,7 +169,7 @@ sub create {
     $self->dir->store($object);
 }
 
-=head2 find
+=head2 find_by
 
 Given a hash of column names and values, this will load the matching object from the database, if a match can be found.
 
@@ -179,7 +179,7 @@ A future revision may also support simple queries or alternatives.
 
 =cut
 
-sub find {
+sub find_by {
     my ($self, $query) = @_;
 
     my $gin_query = Search::GIN::Query::Manual->new(

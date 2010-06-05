@@ -160,13 +160,13 @@ sub create {
     $self->record->insert;
 }
 
-=head2 find
+=head2 find_by
 
 Given a hash of column names and values, this will load the matching object from the database, if a match can be found.
 
 =cut
 
-sub find {
+sub find_by {
     my ($self, $query) = @_;
 
     my $record = $self->result_source->resultset->find($query);
