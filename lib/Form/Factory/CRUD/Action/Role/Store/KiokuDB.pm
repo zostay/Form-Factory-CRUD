@@ -66,6 +66,18 @@ has record => (
 
 =head1 METHODS
 
+=head2 need_find
+
+This is a synonym for:
+
+  !$action->has_record
+
+This is the standard method used by L<Form::Factory::CRUD::Action::Role::Do> to determine if we need to run find.
+
+=cut
+
+sub need_find { not shift->has_record };
+
 =head2 get_record_field
 
 Given the name of an attribute, this return the value of that attribute on the L</record>.
@@ -228,22 +240,13 @@ sub update {
 
 =head2 txn_do
 
-=head2 txn_begin
-
-=head2 txn_commit
-
-=head2 txn_rollback
-
-These are all delegated to L</dir>.
+This is all delegated to L</dir>.
 
 =cut
 
 # Do it this stupid way because Moose doesn't count "handles" (or didn't the 
 # last time I tried it).
-sub txn_do       { shift->txn_do(@_) }
-sub txn_begin    { shift->txn_begin(@_) }
-sub txn_commit   { shift->txn_commit(@_) }
-sub txn_rollback { shift->txn_rollback(@_) }
+sub txn_do { shift->dir->txn_do(@_) }
 
 =head1 SEE ALSO
 

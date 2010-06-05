@@ -17,17 +17,15 @@ This class is not used directly.
 
 =head2 run
 
-This provides a run method that causes the action to run within a transaction. The method first calls the C<find> method (provided by a L<Form::Factory::CRUD::Action::Role::Lookup> role or by the class itself) and then calls the C<do> method (provided by a L<Form::Factory::CRUD::Action::Role::Do> role).
+The method first calls the C<find> method (provided by a L<Form::Factory::CRUD::Action::Role::Lookup> role or by the class itself) and then calls the C<do> method (provided by a L<Form::Factory::CRUD::Action::Role::Do> role).
 
 =cut
 
 sub run {
     my $self = shift;
 
-    $self->txn_do(sub {
-        $self->find;
-        $self->do unless $self->is_failure;
-    });
+    $self->find if $self->need_find and $self->can_find;
+    $self->do unless $self->is_failure;
 }
 
 =head2 set_column_fields

@@ -37,11 +37,6 @@ has schema => (
     is        => 'ro',
     isa       => 'DBIx::Class::Schema',
     required  => 1,
-    handles   => [ qw(
-        txn_do
-
-        txn_begin txn_commit txn_rollback
-    ) ],
 );
 
 =head2 result_name
@@ -83,6 +78,19 @@ has record => (
 );
 
 =head1 METHODS
+
+=head2 need_find
+
+This is a synonym for:
+
+  !$action->has_record
+
+This is the standard method used by L<Form::Factory::CRUD::Action::Role::Do> to determine if we need to run find.
+
+=cut
+
+sub need_find { not shift->has_record };
+
 
 =head2 get_record_field
 
@@ -216,6 +224,16 @@ sub update {
 
     $self->record->update;
 }
+
+=head2 txn_do
+
+This is all delegated to L</schema>.
+
+=cut
+
+# Do it this stupid way because Moose doesn't count "handles" (or didn't the 
+# last time I tried it).
+sub txn_do { shift->schema->txn_do(@_) }
 
 =head1 SEE ALSO
 
